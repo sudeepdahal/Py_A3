@@ -1,14 +1,14 @@
 import addbook 
 import listbook
+import issuebook
 def main():
 	menuNo = mainMenu()
-	#menuNo = mainMenu()
 	print (menuNo)
 	if menuNo == 1 : addbook.addBook();main()
-	if menuNo == 2 : listbook.listBook();main()
-	if menuNo == 3 : addBook();main()
-	if menuNo == 4 : addBook();main()
-	if menuNo == 5 : addBook();main()
+	if menuNo == 2 : listbook.listBook(menuNo);main()
+	if menuNo == 3 : issuebook.issueBook();main()
+	if menuNo == 4 : issuebook.listIssuedBook();main()
+	if menuNo == 5 : issuebook.returnIssueBook();main()
 	if menuNo == 6 : exitProgram()
 
 def addBook():
@@ -19,20 +19,20 @@ def exitProgram():
 
 def mainMenu():
 	print('''
-	=================================
+=================================
 
-	  LIBRARY MANAGEMENT SOFTWARE           
+LIBRARY MANAGEMENT SOFTWARE           
 
-	         MAIN MENU 
+		MAIN MENU 
 
-	==================================
-	<1> Add book
-	<2> List Available Books
-	<3> Issue Book
-	<4> List Issued Books
-	<5> Return Book
-	<6> Exit
-	===================================''')
+==================================
+<1> Add book
+<2> List Available Books
+<3> Issue Book
+<4> List Issued Books
+<5> Return Book
+<6> Exit
+===================================''')
 	menuNo = None
 	#Validating to get positive int value from 1 to 6
 	while True:
@@ -49,6 +49,9 @@ def mainMenu():
 				return menuNo
 				break
 
-
+				# user_number  = input("Enter your number")
+				# while not user_number.isdigit():
+				#     user_number  = input("Invalid ip \nEnter your number")
+				# print(user_number)
 
 main()
