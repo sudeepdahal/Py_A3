@@ -2,7 +2,7 @@ import listbook
 import time
 # def main():
 issuedBooks = dict()
-availableBooks = listbook.listBook(3)
+availableBooks = listbook.getAvailableBooks()
 def issueBook():
 	nextEntry = 'y'
 	while nextEntry.lower() == 'y':
@@ -22,12 +22,12 @@ Issue Book
 		setOfBooks[3] = setOfBooks[3]-1
 		availableBooks[callno] = setOfBooks
 		ts = time.time()
+		# Adding Issue Book in list with the timestamp of dictionary key
 		issuedBooks[ts] = [callno,sid,sname,rdate]
 
-		print(availableBooks)
-		print(issuedBooks)
+		# print(availableBooks)
+		# print(issuedBooks)
 		nextEntry=input('Do you want to issue another book (Y/N)?')
-# main()
 def listIssuedBook():
 	print('''
 ----------------------------------------------
