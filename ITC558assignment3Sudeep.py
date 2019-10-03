@@ -1,24 +1,14 @@
-# import addbook 
-# import listbook
-# import issuebook
 import time
 availableBooks = dict()
 issuedBooks = dict()
-# firstRun = True
 def main():
-	# if firstRun: getAvailableBooksFromFile
 	menuNo = getMainMenuNo()
-	print (menuNo)
+	# After getting Validated menu no the flow goes accordingly
 	if menuNo == 1 : addBook();main()
 	if menuNo == 2 : listAvailableBooks();main()
 	if menuNo == 3 : issueBook();main()
 	if menuNo == 4 : listIssuedBook();main()
 	if menuNo == 5 : returnIssueBook();main()
-	# if menuNo == 1 : addBook();main()
-	# if menuNo == 2 : listAvailableBooks();main()
-	# if menuNo == 3 : issuebook.issueBook();main()
-	# if menuNo == 4 : issuebook.listIssuedBook();main()
-	# if menuNo == 5 : issuebook.returnIssueBook();main()
 	if menuNo == 6 : exitProgram()
 def addBook():
 	nextEntry = 'y'
@@ -26,19 +16,18 @@ def addBook():
 		# Opening a book.txt file in append mode
 		f = open("book.txt", "a")
 		print('---------------\nAdd Book Form\n---------------')
+		# Input and Check for existing call no function call
 		callno=getCallNo()
 		bookName=input('Enter book name: ')
 		author=input('Enter author name: ')
-		# user_number  = input("Enter your number")
-		# while not user_number.isdigit():
-		#     user_number  = input("Invalid ip \nEnter your number")
-		# print(user_number)
 		pyear=input('Enter publish year: ')
 		quantity=input('Enter book quantity: ')
-		# user_number  = input("Enter your number")
+		# Validating for integer quantity
 		while not quantity.isdigit():
 		    quantity = input("Invalid input \nEnter book quantity:")
+		# Writing in a file
 		f.write(str(callno)+','+bookName+','+author+','+pyear+','+quantity+'\n')
+		# Closing file after adding entry
 		f.close()
 		successMessage=('''The details of the book you entered are as follows:
 		Book callno: {callno}
@@ -53,8 +42,12 @@ def addBook():
 		availableBooks = dict()
 		# To update the added record to the dictionary
 		availableBooks = getAvailableBooksFromFile()
-		nextEntry=input('Do you want to enter details for another book (Y/N)?')
+		while True:
+			nextEntry=input('Do you want to enter details for another book (Y/N)?')
+			if nextEntry.lower() == 'n' or nextEntry.lower() == 'y': break
+			else: continue
 def getCallNo():
+	# Opening file in read mode to read the existing callno
 	file = open("book.txt", "r")
 	callnoset = set()
 	for line in file:
@@ -70,7 +63,7 @@ def getCallNo():
 		try:
 			callno = int(input('\nEnter book callno: '))
 		except ValueError:
-			print("Invalid input.Please Input Number Call No. ")
+			print("Invalid input.Please Input integer only ")
 			continue
 		else:
 			if (str(callno) in callnoset):
@@ -80,7 +73,6 @@ def getCallNo():
 				return callno
 				break
 def listAvailableBooks():
-  # availableBooks = getAvailableBooks()
   if len(availableBooks) > 0:
     print('''
 ----------------------------------------------
@@ -91,11 +83,9 @@ Callno      Name              Author            Publish Year    Quantity
 =========================================================================''')
     for key,val in availableBooks.items():
       #Print the books
-      print(key , " \t " , val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
+      print('{:10} {} {:>13} {:>13} {:>13}'.format(key, val[0], val[1], val[2], val[3]))
   else:
     print('There is no available Books')
-
-# availableBooks = listbook.getAvailableBooks()
 def issueBook():
 	nextEntry = 'y'
 	while nextEntry.lower() == 'y':
@@ -118,18 +108,17 @@ Issue Book
 			#Decremenent of book quantity by 1
 			setOfBooks[3] = setOfBooks[3]-1
 			availableBooks[callno] = setOfBooks
+			bookName=setOfBooks[0]
 			ts = time.time()
 			# Adding Issue Book in list with the timestamp of dictionary key
-			issuedBooks[ts] = [callno,sid,sname,rdate]
-
-			# print(availableBooks)
-			# print(issuedBooks)
-			nextEntry=input('Do you want to issue another book (Y/N)?')
+			issuedBooks[ts] = [callno,bookName,sid,sname,rdate]
+			while True:
+				nextEntry=input('Do you want to issue another book (Y/N)?')
+				if nextEntry.lower() == 'n' or nextEntry.lower() == 'y': break
+				else: continue
 		else:
 			print('No available Books to issue')
 			break
-		
-
 def listIssuedBook():
 	print('''
 ----------------------------------------------
@@ -141,11 +130,9 @@ Callno      Book Name          Student ID     Students Name       Return Date
 	if len(issuedBooks) == 0:
 		print('No issued book till now')
 	else:
-		# print(issuedBooks)
 		for key,val in issuedBooks.items():
-		  #Print the book details
-		  print( val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
-
+			#Print the book details
+			print('{:10} {} {:>9} {:>18} {:>21}'.format(val[0], val[1], val[2], val[3], val[4]))
 def returnIssueBook():
 	nextEntry = 'y'
 	while nextEntry.lower() == 'y':
@@ -160,24 +147,23 @@ Return Book
 			callno = input('Enter book callno: ')
 			sid=input('Enter student ID: ')
 			for key,val in issuedBooks.items():
-				if (callno == val[0] and sid == val[1]):
+				if (callno == val[0] and sid == val[2]):
 					#remove from issued book dictionary
 					issuedBooks.pop(key)
 					returnBooks = availableBooks[callno]
 					#Increase of book quantity by 1 in the available book dictionary
 					returnBooks[3] = returnBooks[3]+1
 					availableBooks[callno] = returnBooks
-					# print(issuedBooks)
 					print('Book returned successfully')
 					didNotIssued = False
 					break
 			if didNotIssued : print('The student has not taken this book callno: ')
 		else:
 			print('No Books to return')
-		nextEntry=input('Do you want to return another book (Y/N)? ')
-
-
-
+		while True:
+			nextEntry=input('Do you want to enter details for another book (Y/N)?')
+			if nextEntry.lower() == 'n' or nextEntry.lower() == 'y': break
+			else: continue
 def getAvailableBooksFromFile():
   availableBooks = dict()
   #If file is not present it will open file in append mode
@@ -218,7 +204,6 @@ LIBRARY MANAGEMENT SOFTWARE
 <5> Return Book
 <6> Exit
 ===================================''')
-	# firstRun = False
 	menuNo = None
 	#Validating to get positive int value from 1 to 6
 	while True:
@@ -235,6 +220,5 @@ LIBRARY MANAGEMENT SOFTWARE
 				return menuNo
 				break
 
-# global availableBooks
 availableBooks = getAvailableBooksFromFile()
 main()

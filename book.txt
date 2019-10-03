@@ -1,2 +1,6 @@
-121,121,121,121,121
-22,21,21,21,1
+1,c programming,denial,1990,8
+2,c++ programming,Linux,2001,5
+4,IOT Introduction,Rukesh,2009,7
+7,Linux Script,Denial,2018,4
+8,df,ds,sd,4
+5,t,rt,tr,6

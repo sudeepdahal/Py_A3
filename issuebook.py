@@ -1,7 +1,10 @@
 import listbook
 import time
 # def main():
-issuedBooks = dict()
+
+issuedBooks = {1570062577.2741902: ['1', 'c programming', '12', 'sudeep', '2/11/2019'], 1570062626.3554623: ['2', 'c++ programming', '13', 'rambabu', '4/12/2019']}
+# {1570062577.2741902: ['1', 'c programming', '12', 'sudeep', '2/11/2019']}
+# dict()
 availableBooks = listbook.getAvailableBooks()
 def issueBook():
 	nextEntry = 'y'
@@ -39,10 +42,12 @@ Callno      Book Name          Student ID     Students Name       Return Date
 	if len(issuedBooks) == 0:
 		print('No issued book till now')
 	else:
+		# print('here')
 		# print(issuedBooks)
 		for key,val in issuedBooks.items():
-		  #Print the book details
-		  print( val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
+			print('{:10} {} {:>9} {:>18} {:>21}'.format(val[0], val[1], val[2], val[3], val[4]))
+			# print( val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
+
 
 def returnIssueBook():
 	nextEntry = 'y'
@@ -74,4 +79,5 @@ Return Book
 			print('No Books to return')
 		nextEntry=input('Do you want to return another book (Y/N)? ')
 
-		
+listIssuedBook()
+returnIssueBook()

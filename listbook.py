@@ -10,7 +10,8 @@ Callno      Name              Author            Publish Year    Quantity
 =========================================================================''')
     for key,val in availableBooks.items():
       #Print the books
-      print(key , " \t " , val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
+      # print(key , " \t " , val[0] , " \t " , val[1], " \t\t " , val[2], " \t\t " , val[3])
+      print('{:10} {} {:>13} {:>13} {:>13}'.format(key, val[0], val[1], val[2], val[3]))
   else:
     print('There is no available Books')
 def getAvailableBooks():
@@ -33,3 +34,4 @@ def getAvailableBooks():
   # Closeing the file
   file.close()
   return availableBooks
+listAvailableBooks()

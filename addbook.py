@@ -4,23 +4,29 @@ def addBook():
 		# Opening a book.txt file in append mode
 		f = open("book.txt", "a")
 		print('---------------\nAdd Book Form\n---------------')
-		callno=getCallNo()
-		bookName=input('Enter book name: ')
-		author=input('Enter author name: ')
-		pyear=input('Enter publish year: ')
-		quantity=input('Enter book quantity: ')
-		f.write(str(callno)+','+bookName+','+author+','+pyear+','+quantity+'\n')
-		f.close()
-		successMessage=('''The details of the book you entered are as follows:
-		Book callno: {callno}
-		Book name: {bookName}
-		Author name: {author}
-		Enter publish year: {pyear}
-		Quantity: {quantity}
-		The record has been successfully added to the books.txt file.''')
-		#printing the saved record message
-		print(successMessage.format(callno=callno,bookName=bookName,author=author,pyear=pyear,quantity=quantity))
-		nextEntry=input('Do you want to enter details for another book (Y/N)?')
+		# callno=getCallNo()
+		# bookName=input('Enter book name: ')
+		# author=input('Enter author name: ')
+		# pyear=input('Enter publish year: ')
+		# quantity=input('Enter book quantity: ')
+		# f.write(str(callno)+','+bookName+','+author+','+pyear+','+quantity+'\n')
+		# f.close()
+		# successMessage=('''The details of the book you entered are as follows:
+		# Book callno: {callno}
+		# Book name: {bookName}
+		# Author name: {author}
+		# Enter publish year: {pyear}
+		# Quantity: {quantity}
+		# The record has been successfully added to the books.txt file.''')
+		# #printing the saved record message
+		# print(successMessage.format(callno=callno,bookName=bookName,author=author,pyear=pyear,quantity=quantity))
+		print('THE')
+		# nextEntry = 'a'
+		while True:
+			nextEntry=input('Do you want to enter details for another book (Y/N)?')
+			if nextEntry.lower() == 'n' or nextEntry.lower() == 'y': break
+			else: continue
+			
 def getCallNo():
 	file = open("book.txt", "r")
 	callnoset = set()
@@ -46,3 +52,5 @@ def getCallNo():
 			else:
 				return callno
 				break
+addBook()
+print('END')
